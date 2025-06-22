@@ -14,16 +14,19 @@ import asyncio
 
 logger = logging.getLogger(__name__)
 
+
 class OllamaChain:
     """
     A wrapper class for Ollama model integration using LangChain.
     Provides methods for various study assistance tasks.
     """
-    
-    def __init__(self, model_name: str = "llama3", base_url: str = "http://localhost:11434"):
+
+    def __init__(
+        self, model_name: str = "llama3", base_url: str = "http://localhost:11434"
+    ):
         """
         Initialize the Ollama chain.
-        
+
         Args:
             model_name: Name of the Ollama model to use
             base_url: Base URL for the Ollama server
@@ -32,53 +35,52 @@ class OllamaChain:
         self.base_url = base_url
         self.llm = None
         self._initialize_llm()
-    
+
     def _initialize_llm(self):
         """Initialize the Ollama LLM instance."""
         try:
-            self.llm = Ollama(
-                model=self.model_name,
-                base_url=self.base_url
-            )
+            self.llm = Ollama(model=self.model_name, base_url=self.base_url)
             logger.info(f"Ollama LLM initialized with model: {self.model_name}")
         except Exception as e:
             logger.error(f"Failed to initialize Ollama LLM: {e}")
             self.llm = None
-    
+
     def is_available(self) -> bool:
         """Check if the Ollama service is available."""
         return self.llm is not None
-    
+
     async def generate_response(self, prompt: str) -> Optional[str]:
         """
         Generate a response using the Ollama model.
-        
+
         Args:
             prompt: The input prompt
-            
+
         Returns:
             Generated response or None if error
         """
         if not self.is_available():
             logger.error("Ollama LLM is not available")
             return None
-        
+
         try:
             response = await self.llm.agenerate([prompt])
             return response.generations[0][0].text
         except Exception as e:
             logger.error(f"Error generating response: {e}")
             return None
-    
-    async def create_study_plan(self, subject: str, duration: str, level: str) -> Optional[str]:
+
+    async def create_study_plan(
+        self, subject: str, duration: str, level: str
+    ) -> Optional[str]:
         """
         Create a personalized study plan.
-        
+
         Args:
             subject: Subject to study
             duration: Duration for the study plan
             level: Student's level (beginner, intermediate, advanced)
-            
+
         Returns:
             Generated study plan or None if error
         """
@@ -92,30 +94,26 @@ class OllamaChain:
             
             Please provide a structured study plan with daily goals, key topics to cover,
             and recommended study methods. Make it practical and achievable.
-            """
+            """,
         )
-        
+
         chain = LLMChain(llm=self.llm, prompt=prompt_template)
-        
+
         try:
-            result = await chain.arun(
-                subject=subject,
-                duration=duration,
-                level=level
-            )
+            result = await chain.arun(subject=subject, duration=duration, level=level)
             return result
         except Exception as e:
             logger.error(f"Error creating study plan: {e}")
             return None
-    
+
     async def explain_concept(self, concept: str, context: str = "") -> Optional[str]:
         """
         Explain a concept in simple terms.
-        
+
         Args:
             concept: The concept to explain
             context: Additional context or subject area
-            
+
         Returns:
             Explanation or None if error
         """
@@ -131,11 +129,11 @@ class OllamaChain:
             2. Key characteristics
             3. Examples or analogies
             4. Why it's important
-            """
+            """,
         )
-        
+
         chain = LLMChain(llm=self.llm, prompt=prompt_template)
-        
+
         try:
             result = await chain.arun(concept=concept, context=context)
             return result
@@ -143,16 +141,18 @@ class OllamaChain:
             logger.error(f"Error explaining concept: {e}")
             return None
 
+
 # Global instance
 ollama_chain = OllamaChain()
+
 
 async def get_topic_explanation(topic: str) -> str:
     """
     Get a simple explanation of a topic using the Ollama AI model.
-    
+
     Args:
         topic: The topic to explain
-        
+
     Returns:
         A simple explanation of the topic
     """
@@ -166,20 +166,61 @@ Please provide:
 3. A simple example or analogy if helpful
 4. Why it's important or relevant
 
-Keep the explanation concise but comprehensive, suitable for someone learning about this topic for the first time."""
+Keep the explanation concise but comprehensive, suitable for someone learning about this topic for the first time.""",
     )
-    
+
     if not ollama_chain.is_available():
         return "I'm sorry, but the AI service is currently unavailable. Please make sure Ollama is running with the llama3 model."
-    
+
     try:
         chain = LLMChain(llm=ollama_chain.llm, prompt=prompt_template)
-        
+
         # Run the chain in a separate thread to avoid blocking
         loop = asyncio.get_event_loop()
         result = await loop.run_in_executor(None, chain.run, topic)
         return result.strip()
-        
+
     except Exception as e:
         logger.error(f"Error getting topic explanation: {e}")
         return f"I encountered an error while trying to explain '{topic}'. Please try again or check if Ollama is running properly."
+
+
+async def get_chunk_summary(text: str) -> str:
+    """
+    Generate a concise summary of a text chunk for PDF summarization.
+
+    Args:
+        text: The text chunk to summarize
+
+    Returns:
+        A concise summary of the text chunk
+    """
+    prompt_template = PromptTemplate(
+        input_variables=["text"],
+        template="""Summarize the following text in a clear and concise manner:
+
+Text to summarize:
+{text}
+
+Please provide:
+1. A brief summary of the main points
+2. Key concepts or information mentioned
+3. Any important details or conclusions
+
+Keep the summary informative but concise, highlighting the most important aspects of the text.""",
+    )
+
+    if not ollama_chain.is_available():
+        return "AI service is currently unavailable. Please ensure Ollama is running with the llama3 model."
+
+    try:
+        chain = LLMChain(llm=ollama_chain.llm, prompt=prompt_template)
+
+        # Run the chain in a separate thread to avoid blocking
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, chain.run, text)
+        return result.strip()
+
+    except Exception as e:
+        logger.error(f"Error getting chunk summary: {e}")
+        return f"Error summarizing this section: {str(e)}"
