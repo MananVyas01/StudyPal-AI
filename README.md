@@ -1,4 +1,4 @@
-# StudyPal-AI �
+# StudyPal-AI 
 
 <div align="center">
 
