@@ -5,11 +5,12 @@ This module provides integration with locally running Ollama models
 via LangChain for AI-powered study assistance features.
 """
 
-from langchain.llms import Ollama
+from langchain_community.llms import Ollama
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from typing import Optional, Dict, Any
 import logging
+import asyncio
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +20,7 @@ class OllamaChain:
     Provides methods for various study assistance tasks.
     """
     
-    def __init__(self, model_name: str = "llama2", base_url: str = "http://localhost:11434"):
+    def __init__(self, model_name: str = "llama3", base_url: str = "http://localhost:11434"):
         """
         Initialize the Ollama chain.
         
@@ -144,3 +145,41 @@ class OllamaChain:
 
 # Global instance
 ollama_chain = OllamaChain()
+
+async def get_topic_explanation(topic: str) -> str:
+    """
+    Get a simple explanation of a topic using the Ollama AI model.
+    
+    Args:
+        topic: The topic to explain
+        
+    Returns:
+        A simple explanation of the topic
+    """
+    prompt_template = PromptTemplate(
+        input_variables=["topic"],
+        template="""Explain {topic} in simple terms. 
+
+Please provide:
+1. A clear, easy-to-understand definition
+2. Key points or characteristics
+3. A simple example or analogy if helpful
+4. Why it's important or relevant
+
+Keep the explanation concise but comprehensive, suitable for someone learning about this topic for the first time."""
+    )
+    
+    if not ollama_chain.is_available():
+        return "I'm sorry, but the AI service is currently unavailable. Please make sure Ollama is running with the llama3 model."
+    
+    try:
+        chain = LLMChain(llm=ollama_chain.llm, prompt=prompt_template)
+        
+        # Run the chain in a separate thread to avoid blocking
+        loop = asyncio.get_event_loop()
+        result = await loop.run_in_executor(None, chain.run, topic)
+        return result.strip()
+        
+    except Exception as e:
+        logger.error(f"Error getting topic explanation: {e}")
+        return f"I encountered an error while trying to explain '{topic}'. Please try again or check if Ollama is running properly."

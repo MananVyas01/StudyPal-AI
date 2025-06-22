@@ -6,6 +6,14 @@ StudyPal-AI is a comprehensive study companion that combines the power of AI wit
 
 ## 🌟 Features
 
+### ✅ Stage 2: AI Topic Explainer (Current)
+- 🧠 **Smart Explanations**: Get clear, simple explanations for any topic
+- 🔄 **Real-time Processing**: Interactive form with loading states
+- 🎯 **AI-Powered**: Uses locally running Llama3 model via Ollama
+- 🎨 **Beautiful UI**: Clean, responsive design with dark mode support
+
+### 🚧 Coming Soon
+
 ### 🧠 AI Study Plans
 - Generate personalized study schedules based on your goals, timeline, and learning preferences
 - Adaptive planning that adjusts to your progress and performance
