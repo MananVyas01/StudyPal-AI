@@ -2,11 +2,14 @@
 
 <div align="center">
 
-![StudyPal-AI Logo](https://img.shields.io/badge/StudyPal--AI-v0.1.0-blue?style=for-the-badge&logo=robot)
+![StudyPal-AI Logo](ht<summary><strong>## 🏗️ Technical Architecture
+
+### � Backend Stack
+- **[FastAPI](https://fastapi.tiangolo.com/)** - High-performance Python web frameworkmart Notes</strong> <em>(Coming Soon)</em></summary>ps://img.shields.io/badge/StudyPal--AI-v0.1.0-blue?style=for-the-badge&logo=robot)
 
 **🎯 Your Intelligent Study Companion - Fully Offline AI-Powered Learning**
 
-[![Development Status](https://img.shields.io/badge/Status-Under%20Development-orange?style=flat-square)](https://github.com/yourusername/StudyPal-AI)
+[![Development Status](https://img.shields.io/badge/Status-Under%20Development-orange?style=flat-square)](https://github.com/MananVyas01/StudyPal-AI)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15.3.4-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-009688?style=flat-square&logo=fastapi)](https://fastapi.tiangolo.com/)
@@ -109,7 +112,7 @@ StudyPal-AI is being built as the ultimate **offline-first AI study assistant** 
 ### 1️⃣ Clone & Setup
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/StudyPal-AI.git
+git clone https://github.com/MananVyas01/StudyPal-AI.git
 cd StudyPal-AI
 ```
 
@@ -211,19 +214,19 @@ npm run lint:fix
 We welcome contributions from developers of all skill levels! Here's how you can help:
 
 ### 🐛 Bug Reports
-- Use the [issue tracker](https://github.com/yourusername/StudyPal-AI/issues)
+- Use the [issue tracker](https://github.com/MananVyas01/StudyPal-AI/issues)
 - Provide detailed reproduction steps
 - Include system information and error logs
 
 ### 💡 Feature Requests
-- Check existing [discussions](https://github.com/yourusername/StudyPal-AI/discussions)
+- Check existing [discussions](https://github.com/MananVyas01/StudyPal-AI/discussions)
 - Describe the feature's value and use cases
 - Consider implementation complexity
 
 ### 🔧 Development Contributions
 ```bash
 # 1. Fork and clone the repository
-git clone https://github.com/your-username/StudyPal-AI.git
+git clone https://github.com/MananVyas01/StudyPal-AI.git
 
 # 2. Create a feature branch
 git checkout -b feature/amazing-new-feature
@@ -315,8 +318,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### Need Help? We're Here!
 
-[![GitHub Issues](https://img.shields.io/badge/Issues-Ask%20Questions-red?style=for-the-badge&logo=github)](https://github.com/yourusername/StudyPal-AI/issues)
-[![GitHub Discussions](https://img.shields.io/badge/Discussions-Join%20Community-purple?style=for-the-badge&logo=github)](https://github.com/yourusername/StudyPal-AI/discussions)
+[![GitHub Issues](https://img.shields.io/badge/Issues-Ask%20Questions-red?style=for-the-badge&logo=github)](https://github.com/MananVyas01/StudyPal-AI/issues)
+[![GitHub Discussions](https://img.shields.io/badge/Discussions-Join%20Community-purple?style=for-the-badge&logo=github)](https://github.com/MananVyas01/StudyPal-AI/discussions)
 [![Documentation](https://img.shields.io/badge/Docs-Read%20More-blue?style=for-the-badge&logo=gitbook)](docs/)
 
 </div>
@@ -329,8 +332,8 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 *Empowering education through open-source AI technology*
 
-[![GitHub Stars](https://img.shields.io/github/stars/yourusername/StudyPal-AI?style=social)](https://github.com/yourusername/StudyPal-AI/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/yourusername/StudyPal-AI?style=social)](https://github.com/yourusername/StudyPal-AI/network/members)
+[![GitHub Stars](https://img.shields.io/github/stars/MananVyas01/StudyPal-AI?style=social)](https://github.com/MananVyas01/StudyPal-AI/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/MananVyas01/StudyPal-AI?style=social)](https://github.com/MananVyas01/StudyPal-AI/network/members)
 
 </div>
 - **Tailwind CSS**: Modern, responsive styling
